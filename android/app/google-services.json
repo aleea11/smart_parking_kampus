@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "89412940976",
+    "project_id": "smart-parking-kampus",
+    "storage_bucket": "smart-parking-kampus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89412940976:android:ba37043889e53a3bc6b775",
+        "android_client_info": {
+          "package_name": "com.example.studio_projects"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD09Py67bDdr2n2pZFyzOTOKARDqBBCqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
