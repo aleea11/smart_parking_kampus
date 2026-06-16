@@ -12,24 +12,57 @@ import 'dart:async';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyBD_maEZsl-ETQEE5n4SsN8ihRnOyeaNio", 
-        authDomain: "smart-parking-kampus.firebaseapp.com",
-        projectId: "smart-parking-kampus",
-        storageBucket: "smart-parking-kampus.firebasestorage.app",
-        messagingSenderId: "89412940976",
-        appId: "1:89412940976:web:d3a606f7e3f110c0c6b775",
-        measurementId: "G-F81L2Q6BP1",
+  try {
+    if (kIsWeb) {
+      // Konfigurasi khusus untuk Web (Chrome)
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyBD_maEZsl-ETQEE5n4SsN8ihRnOyeaNio", 
+          authDomain: "smart-parking-kampus.firebaseapp.com",
+          projectId: "smart-parking-kampus",
+          storageBucket: "smart-parking-kampus.firebasestorage.app",
+          messagingSenderId: "89412940976",
+          appId: "1:89412940976:web:d3a606f7e3f110c0c6b775",
+          measurementId: "G-F81L2Q6BP1",
+        ),
+      );
+    } else {
+      // KONFIGURASI KHUSUS ANDROID (Jalur Pintas)
+      // Ini diambil langsung dari file JSON-mu, sehingga Android tidak perlu baca file lagi!
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyAD09Py67bDdr2n2pZFyzOTOKARDqBBCqM", 
+          appId: "1:89412940976:android:ba37043889e53a3bc6b775", 
+          messagingSenderId: "89412940976",
+          projectId: "smart-parking-kampus",
+          storageBucket: "smart-parking-kampus.firebasestorage.app",
+        ),
+      );
+    }
+    
+    // Jika koneksi sukses, jalankan aplikasi normal
+    runApp(const SmartParkingApp());
+    
+  } catch (e) {
+    // JIKA GAGAL: Jangan stuck di logo, langsung tampilkan penyebab error di layar!
+    runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Text(
+              "APLIKASI GAGAL DIBUKA!\n\nPenyebab:\n$e", 
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+          ),
+        ),
       ),
-    );
-  } else {
-    await Firebase.initializeApp();
+    ));
   }
-  
-  runApp(const SmartParkingApp());
 }
+
 
 class SmartParkingApp extends StatelessWidget {
   const SmartParkingApp({Key? key}) : super(key: key);
